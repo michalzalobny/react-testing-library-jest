@@ -19,3 +19,17 @@ test("button click flow", () => {
   expect(buttonElement).toHaveClass("blue");
   expect(buttonElement).toHaveTextContent(/red/i);
 });
+
+test("checkbox flow", () => {
+  render(<App />);
+
+  const checkboxElement = screen.getByRole("checkbox");
+  expect(checkboxElement).toBeChecked();
+  const buttonElement = screen.getByRole("button");
+  expect(buttonElement).toBeEnabled();
+
+  //Click the checkbox and test if disables the button
+  fireEvent.click(checkboxElement);
+  expect(checkboxElement).not.toBeChecked();
+  expect(buttonElement).not.toBeEnabled();
+});

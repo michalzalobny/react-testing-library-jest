@@ -2,6 +2,7 @@ import { useState } from "react";
 
 function App() {
   const [isBlue, setIsBlue] = useState(false);
+  const [enableButton, setEnableButton] = useState(true);
 
   return (
     <div>
@@ -11,9 +12,17 @@ function App() {
           setIsBlue(!isBlue);
         }}
         className={isBlue ? "blue" : "red"}
+        disabled={!enableButton}
       >
         change color to {isBlue ? "red" : "blue"}
       </button>
+      <input
+        type="checkbox"
+        onChange={() => {
+          setEnableButton(!enableButton);
+        }}
+        checked={enableButton}
+      />
     </div>
   );
 }
