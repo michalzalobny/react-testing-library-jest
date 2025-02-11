@@ -69,10 +69,15 @@ button:focus-visible {
   }
 }
 
-.red {
-  background-color: red;
+.medium-violet-red {
+  background-color: mediumvioletred;
 }
 
-.blue {
-  background-color: blue;
+.midnight-blue {
+  background-color: midnightblue;
+}
+
+.gray {
+  background-color: gray;
+  cursor: not-allowed;
 }

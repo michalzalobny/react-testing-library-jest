@@ -1,29 +1,38 @@
 import { useState } from "react";
 
+import { kebabCaseToTitleCase } from "./helpers";
+
+const MIDNIGHT_BLUE = "midnight-blue";
+const MEDIUM_VIOLET_RED = "medium-violet-red";
+
 function App() {
-  const [isBlue, setIsBlue] = useState(false);
-  const [enableButton, setEnableButton] = useState(true);
+  const [currentColor, setCurrentColor] = useState(MEDIUM_VIOLET_RED);
+  const nextColor =
+    currentColor === MIDNIGHT_BLUE ? MEDIUM_VIOLET_RED : MIDNIGHT_BLUE;
+  const [isDisabled, setIsDisabled] = useState(false);
 
   return (
     <div>
       <h1>I'm gonna learn React Testing Library</h1>
       <button
         onClick={() => {
-          setIsBlue(!isBlue);
+          setCurrentColor((prev) =>
+            prev === MIDNIGHT_BLUE ? MEDIUM_VIOLET_RED : MIDNIGHT_BLUE
+          );
         }}
-        className={isBlue ? "blue" : "red"}
-        disabled={!enableButton}
+        className={[currentColor, isDisabled && "gray"].join(" ")}
+        disabled={isDisabled}
       >
-        change color to {isBlue ? "red" : "blue"}
+        change color to {kebabCaseToTitleCase(nextColor)}
       </button>
-      <label for="disable-button-checkbox">Disable button checkbox</label>
+      <label htmlFor="disable-button-checkbox">Disable button checkbox</label>
       <input
         id="disable-button-checkbox"
         type="checkbox"
         onChange={() => {
-          setEnableButton(!enableButton);
+          setIsDisabled(!isDisabled);
         }}
-        checked={enableButton}
+        checked={isDisabled}
       />
     </div>
   );
