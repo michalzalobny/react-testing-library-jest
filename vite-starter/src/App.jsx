@@ -16,7 +16,9 @@ function App() {
       >
         change color to {isBlue ? "red" : "blue"}
       </button>
+      <label for="disable-button-checkbox">Disable button checkbox</label>
       <input
+        id="disable-button-checkbox"
         type="checkbox"
         onChange={() => {
           setEnableButton(!enableButton);

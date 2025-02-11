@@ -23,13 +23,20 @@ test("button click flow", () => {
 test("checkbox flow", () => {
   render(<App />);
 
-  const checkboxElement = screen.getByRole("checkbox");
+  const checkboxElement = screen.getByRole("checkbox", {
+    name: /Disable button checkbox/i,
+  });
   expect(checkboxElement).toBeChecked();
-  const buttonElement = screen.getByRole("button");
+  const buttonElement = screen.getByRole("button", { name: /blue/i });
   expect(buttonElement).toBeEnabled();
 
   //Click the checkbox and test if disables the button
   fireEvent.click(checkboxElement);
   expect(checkboxElement).not.toBeChecked();
   expect(buttonElement).not.toBeEnabled();
+
+  //Click the checkbox and test if enables the button
+  fireEvent.click(checkboxElement);
+  expect(checkboxElement).toBeChecked();
+  expect(buttonElement).toBeEnabled();
 });
