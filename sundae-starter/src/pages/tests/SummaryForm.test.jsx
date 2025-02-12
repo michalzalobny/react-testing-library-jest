@@ -27,4 +27,23 @@ describe("Summary form flow", () => {
     await user.click(checkboxElement);
     expect(buttonElement).not.toBeEnabled();
   });
+
+  test("popover responds to hover", async () => {
+    render(<SummaryForm />);
+    const user = userEvent.setup();
+
+    //popover starts hidden
+    const nullPopover = screen.queryByText(/no ice/i);
+    expect(nullPopover).not.toBeInTheDocument();
+
+    //popover appears when hovered over checkbox label
+    const termsAndConditions = screen.getByText(/conditions/i);
+    await user.hover(termsAndConditions);
+    const popover = screen.getByText(/no ice/i);
+    expect(popover).toBeInTheDocument();
+
+    //popover disappears on mouseout from checkbox label
+    await user.unhover(termsAndConditions);
+    expect(popover).not.toBeInTheDocument();
+  });
 });
