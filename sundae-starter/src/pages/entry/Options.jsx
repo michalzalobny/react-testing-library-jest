@@ -1,30 +1,28 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Row from "react-bootstrap/Row";
-
-import { ScoopOption } from "./ScoopOption";
-import { ToppingOption } from "./ToppingOption";
-import { AlertBanner } from "../common/AlertBanner";
-import { pricePerItem } from "../../constants/index";
-import { formatCurrency } from "../../utilities/index";
+import ScoopOption from "./ScoopOption";
+import ToppingOption from "./ToppingOption";
+import AlertBanner from "../common/AlertBanner";
+import { pricePerItem } from "../../constants";
+import { formatCurrency } from "../../utilities";
 import { useOrderDetails } from "../../contexts/OrderDetails";
 
-export const Options = ({ optionType }) => {
+export default function Options({ optionType }) {
   const [items, setItems] = useState([]);
   const [error, setError] = useState(false);
   const { totals } = useOrderDetails();
 
-  // optionType is scoops or toppings
+  // optionType is 'scoops' or 'toppings
   useEffect(() => {
     axios
       .get(`http://localhost:3030/${optionType}`)
       .then((response) => setItems(response.data))
-      .catch((error) => {
-        return setError(true);
-      });
+      .catch((error) => setError(true));
   }, [optionType]);
 
   if (error) {
+    // @ts-ignore
     return <AlertBanner />;
   }
 
@@ -49,4 +47,4 @@ export const Options = ({ optionType }) => {
       <Row>{optionItems}</Row>
     </>
   );
-};
+}
